@@ -1,0 +1,27 @@
+{
+  "name": "PortAudio",
+  "source": "@GEM@/3rdParty",
+  "description": "Libsndfile libraries",
+  "includes": [
+    "libsndfile/include"
+  ],
+  "defines": [],
+  "lib_required": "True",
+  "platform": {
+    "win_x64_vs2013": {
+      "libpath": [
+        "libsndfile/lib"
+      ],
+      "sharedlibpath": [
+        "libsndfile/bin"
+      ],
+      "lib": [
+        "libsndfile-1.lib"
+      ],
+      "shared": [
+        "libsndfile-1.dll"
+      ]
+    },
+    "win_x64_vs2015": "@win_x64_vs2013"
+  }
+}

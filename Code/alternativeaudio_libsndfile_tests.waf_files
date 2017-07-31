@@ -1,0 +1,7 @@
+{
+    "auto": {
+        "Tests": [
+            "Tests/AlternativeAudio_LibsndfileTest.cpp"
+        ]
+    }
+}

@@ -1,0 +1,33 @@
+from waflib.TaskGen import feature
+
+@feature('copy_audio_dlls')
+def feature_copy_audio_dlls(self):
+	platform = self.bld.env['PLATFORM']
+	configuration = self.bld.env['CONFIGURATION']
+
+	#for the windows platform
+	if platform == 'win_x64' or platform == 'win_x64_vs2015' or platform == 'win_x64_vs2013':
+		output_folder = self.bld.get_output_folders(platform, configuration)[0]
+
+		#copy libsndfile
+		snd_source_file = self.bld.CreateRootRelativePath('Gems/AlternativeAudio_Libsndfile/3rdParty/libsndfile/bin/libsndfile-1.dll')
+		self.create_task('copy_outputs', self.bld.root.make_node(snd_source_file), output_folder.make_node('libsndfile-1.dll'))
+
+def build(bld):
+    bld.DefineGem(
+        # Add custom build options here
+		features = [ 'copy_audio_dlls' ],
+
+        includes    = [
+			bld.Path('Code/CryEngine/CryAction'),
+			bld.Path('Gems/AlternativeAudio_Libsndfile/3rdParty/libsndfile/include')
+		],
+
+        lib = [
+            'libsndfile-1'
+        ],
+              
+        libpath = [
+            bld.Path('Gems/AlternativeAudio_Libsndfile/3rdParty/libsndfile/lib')
+        ],
+    )
