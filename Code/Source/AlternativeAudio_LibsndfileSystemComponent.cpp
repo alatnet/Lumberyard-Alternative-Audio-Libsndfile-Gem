@@ -18,7 +18,7 @@ namespace AlternativeAudio_Libsndfile {
 			if (AZ::EditContext* ec = serialize->GetEditContext()) {
 				ec->Class<AlternativeAudio_LibsndfileSystemComponent>("AlternativeAudio_Libsndfile", "Provides Libsndfile audio sources.")
 					->ClassElement(AZ::Edit::ClassElements::EditorData, "")
-					// ->Attribute(AZ::Edit::Attributes::Category, "") Set a category
+					->Attribute(AZ::Edit::Attributes::Category, "Alternative Audio - Library")
 					->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
 					->Attribute(AZ::Edit::Attributes::AutoExpand, true)
 					;
