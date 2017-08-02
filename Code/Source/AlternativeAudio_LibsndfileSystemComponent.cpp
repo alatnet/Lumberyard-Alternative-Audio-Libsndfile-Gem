@@ -46,57 +46,61 @@ namespace AlternativeAudio_Libsndfile {
 	}
 
 	void AlternativeAudio_LibsndfileSystemComponent::Activate() {
-		if (!libraryRegistered) {
-			libraryRegistered = true;
-			AZStd::vector<AZStd::string> filetypes;
-			filetypes.push_back("*.wav");
-			filetypes.push_back("*.sgi");
-			filetypes.push_back("*.aiff");
-			filetypes.push_back("*.aifc");
-			filetypes.push_back("*.sun");
-			filetypes.push_back("*.dec");
-			filetypes.push_back("*.next");
-			filetypes.push_back("*.au");
-			filetypes.push_back("*.snd");
-			filetypes.push_back("*.raw");
-			filetypes.push_back("*.paf");
-			filetypes.push_back("*.iff");
-			filetypes.push_back("*.svx");
-			filetypes.push_back("*.sf");
-			filetypes.push_back("*.voc");
-			filetypes.push_back("*.w64");
-			filetypes.push_back("*.mat4");
-			filetypes.push_back("*.mat5");
-			filetypes.push_back("*.pvf");
-			filetypes.push_back("*.xi");
-			filetypes.push_back("*.htk");
-			filetypes.push_back("*.caf");
-			filetypes.push_back("*.sd2");
-			filetypes.push_back("*.flac");
-			filetypes.push_back("*.ogg");
+		if (libraryRegistered) return;
+		libraryRegistered = true;
 
-			EBUS_EVENT(
-				AlternativeAudio::AlternativeAudioRequestBus,
-				RegisterAudioLibrary,
-				"libsndfile",
-				AZ::Crc32("libsndfile"),
-				filetypes,
-				[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
-					return new AudioSource_Libsnd(path);
-				}
-			);
+		AZ_Printf("[Libsndfile]", "[Libsndfile] Registering library.\n");
 
-			EBUS_EVENT(
-				AlternativeAudio::AlternativeAudioRequestBus,
-				RegisterAudioLibrary,
-				"libsndfile_memory",
-				AZ::Crc32("libsndfile_memory"),
-				filetypes,
-				[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
-					return new AudioSource_Libsnd_Memory(path);
-				}
-			);
-		}
+		AZStd::vector<AZStd::string> filetypes;
+		filetypes.push_back("*.wav");
+		filetypes.push_back("*.sgi");
+		filetypes.push_back("*.aiff");
+		filetypes.push_back("*.aifc");
+		filetypes.push_back("*.sun");
+		filetypes.push_back("*.dec");
+		filetypes.push_back("*.next");
+		filetypes.push_back("*.au");
+		filetypes.push_back("*.snd");
+		filetypes.push_back("*.raw");
+		filetypes.push_back("*.paf");
+		filetypes.push_back("*.iff");
+		filetypes.push_back("*.svx");
+		filetypes.push_back("*.sf");
+		filetypes.push_back("*.voc");
+		filetypes.push_back("*.w64");
+		filetypes.push_back("*.mat4");
+		filetypes.push_back("*.mat5");
+		filetypes.push_back("*.pvf");
+		filetypes.push_back("*.xi");
+		filetypes.push_back("*.htk");
+		filetypes.push_back("*.caf");
+		filetypes.push_back("*.sd2");
+		filetypes.push_back("*.flac");
+		filetypes.push_back("*.ogg");
+
+		EBUS_EVENT(
+			AlternativeAudio::AlternativeAudioRequestBus,
+			RegisterAudioLibrary,
+			"libsndfile",
+			AZ_CRC("libsndfile"),
+			filetypes,
+			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
+				return new AudioSource_Libsnd(path);
+			}
+		);
+
+		EBUS_EVENT(
+			AlternativeAudio::AlternativeAudioRequestBus,
+			RegisterAudioLibrary,
+			"libsndfile_memory",
+			AZ_CRC("libsndfile_memory"),
+			filetypes,
+			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
+				return new AudioSource_Libsnd_Memory(path);
+			}
+		);
+
+		AZ_Printf("[Libsndfile]", "[Libsndfile] Registration complete.\n");
 	}
 
 	void AlternativeAudio_LibsndfileSystemComponent::Deactivate() {

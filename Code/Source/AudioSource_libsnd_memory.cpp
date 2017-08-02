@@ -47,7 +47,7 @@ namespace AlternativeAudio_Libsndfile {
 		this->m_timeLength.minutes = (int)((this->m_timeLength.totalSec - (this->m_timeLength.hrs * 3600.0)) / 60.0);
 		this->m_timeLength.sec = this->m_timeLength.totalSec - (this->m_timeLength.hrs * 3600.0) - (this->m_timeLength.minutes * 60.0);
 
-		//CLOG("[AudioSource_libsnd_memory] File Length: %i:%i:%f - %f", this->m_timeLength.hrs, this->m_timeLength.minutes, this->m_timeLength.sec, this->m_timeLength.totalSec);
+		AZ_Printf("AudioSource_libsnd_memory","[AudioSource_libsnd_memory] File Length: %i:%i:%f - %f", this->m_timeLength.hrs, this->m_timeLength.minutes, this->m_timeLength.sec, this->m_timeLength.totalSec);
 
 		//create the memory buffer
 		this->m_buff = new float[sfInfo.frames * sfInfo.channels];
@@ -148,26 +148,26 @@ namespace AlternativeAudio_Libsndfile {
 		return true;
 	}
 
-	const AZ::Uuid& AudioSource_Libsnd_Memory::GetFrameType() {
+	const AlternativeAudio::AudioFrame::Type AudioSource_Libsnd_Memory::GetFrameType() {
 		switch (this->m_numChannels) {
 		case 1:
-			return AlternativeAudio::AudioFrame::af1::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af1;
 		case 2:
-			return AlternativeAudio::AudioFrame::af2::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af2;
 		case 3:
-			return AlternativeAudio::AudioFrame::af21::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af21;
 		case 4:
-			return AlternativeAudio::AudioFrame::af31::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af31;
 		case 5:
-			return AlternativeAudio::AudioFrame::af5::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af5;
 		case 6:
-			return AlternativeAudio::AudioFrame::af51::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af51;
 		case 7:
-			return AlternativeAudio::AudioFrame::af7::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af7;
 		case 8:
-			return AlternativeAudio::AudioFrame::af71::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af71;
 		}
 
-		return AlternativeAudio::AudioFrame::af1::RTTI_Type();
+		return AlternativeAudio::AudioFrame::Type::eT_af1;
 	}
 }

@@ -20,14 +20,11 @@ namespace AlternativeAudio_Libsndfile{
 		double GetSampleRate() { return this->sfInfo.samplerate; }
 		AlternativeAudio::AudioSourceTime GetLength() { return this->m_timeLength; }
 		long long GetFrameLength() { return this->sfInfo.frames; }
-		const AZ::Uuid& GetFrameType();
+		const AlternativeAudio::AudioFrame::Type GetFrameType();
 	private:
 		SNDFILE *sndFile;
 		SF_INFO sfInfo;
 		AlternativeAudio::AudioSourceTime m_timeLength;
 		int m_flags;
-	private:
-		bool m_hasError;
-		AZStd::vector<AlternativeAudio::AudioSourceError> m_errors;
 	};
 }

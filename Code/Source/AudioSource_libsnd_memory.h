@@ -18,7 +18,7 @@ namespace AlternativeAudio_Libsndfile {
 		long long GetFrames(long long framesToRead, float* buff);
 		bool GetFrame(float* frame);
 		double GetSampleRate() { return this->m_samplerate; }
-		const AZ::Uuid& GetFrameType();
+		const AlternativeAudio::AudioFrame::Type GetFrameType();
 		AlternativeAudio::AudioSourceTime GetLength() { return this->m_timeLength; }
 		long long GetFrameLength() { return this->m_numFrames; }
 	private:
@@ -29,8 +29,5 @@ namespace AlternativeAudio_Libsndfile {
 		AlternativeAudio::AudioSourceTime m_timeLength;
 		float * m_buff;
 		int m_flags;
-	private:
-		bool m_hasError;
-		AZStd::vector<AlternativeAudio::AudioSourceError> m_errors;
 	};
 }

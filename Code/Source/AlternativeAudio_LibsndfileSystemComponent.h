@@ -23,11 +23,6 @@ namespace AlternativeAudio_Libsndfile
         static void GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent);
     protected:
         ////////////////////////////////////////////////////////////////////////
-        // AlternativeAudio_LibsndfileRequestBus interface implementation
-
-        ////////////////////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////////////////////////////
         // AZ::Component interface implementation
         void Init() override;
         void Activate() override;

@@ -69,26 +69,26 @@ namespace AlternativeAudio_Libsndfile {
 		return sf_readf_float(this->sndFile, frame, this->sfInfo.channels) == 1;
 	}
 
-	const AZ::Uuid& AudioSource_Libsnd::GetFrameType() {
+	const AlternativeAudio::AudioFrame::Type AudioSource_Libsnd::GetFrameType() {
 		switch (this->sfInfo.channels) {
 		case 1:
-			return AlternativeAudio::AudioFrame::af1::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af1;
 		case 2:
-			return AlternativeAudio::AudioFrame::af2::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af2;
 		case 3:
-			return AlternativeAudio::AudioFrame::af21::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af21;
 		case 4:
-			return AlternativeAudio::AudioFrame::af31::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af31;
 		case 5:
-			return AlternativeAudio::AudioFrame::af5::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af5;
 		case 6:
-			return AlternativeAudio::AudioFrame::af51::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af51;
 		case 7:
-			return AlternativeAudio::AudioFrame::af7::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af7;
 		case 8:
-			return AlternativeAudio::AudioFrame::af71::RTTI_Type();
+			return AlternativeAudio::AudioFrame::Type::eT_af71;
 		}
 
-		return AlternativeAudio::AudioFrame::af1::RTTI_Type();
+		return AlternativeAudio::AudioFrame::Type::eT_af1;
 	}
 }
