@@ -23,6 +23,8 @@ namespace AlternativeAudio_Libsndfile {
 			return;
 		}
 		
+		this->m_format = this->GetFrameType();
+
 		AZ_Printf("AudioSource_libsnd", "[AudioSource_libsnd] Channels: %i", this->sfInfo.channels);
 		AZ_Printf("AudioSource_libsnd", "[AudioSource_libsnd] Sample rate: %i", this->sfInfo.samplerate);
 		AZ_Printf("AudioSource_libsnd", "[AudioSource_libsnd] Seekable: %i", this->sfInfo.seekable);
@@ -41,12 +43,6 @@ namespace AlternativeAudio_Libsndfile {
 			this->sndFile = nullptr;
 		}
 	}
-
-	std::string AudioSource_Libsnd::GetVersion() {
-		std::string ret = "[AudioSource_Libsnd] AudioSource - libsndfile version: ";
-		ret += sf_version_string();
-		return ret;
-	}
 	
 	bool AudioSource_Libsnd::Seek(long long position){
 		if (!this->m_hasError) {
@@ -62,11 +58,22 @@ namespace AlternativeAudio_Libsndfile {
 	
 	long long AudioSource_Libsnd::GetFrames(long long framesToRead, float* buff){
 		if (this->m_hasError) return 0;
-		return sf_readf_float(this->sndFile, buff, framesToRead);
+		
+		long long ret = sf_readf_float(this->sndFile, buff, framesToRead);
+
+		//process per source dsp effect
+		this->ProcessEffects(this->m_format, buff, ret);
+
+		return ret;
 	}
 
 	bool AudioSource_Libsnd::GetFrame(float* frame) {
-		return sf_readf_float(this->sndFile, frame, this->sfInfo.channels) == 1;
+		bool ret = sf_readf_float(this->sndFile, frame, this->sfInfo.channels) == 1;
+
+		//process per source dsp effect
+		if (ret) this->ProcessEffects(this->m_format, frame, 1);
+
+		return ret;
 	}
 
 	const AlternativeAudio::AudioFrame::Type AudioSource_Libsnd::GetFrameType() {

@@ -19,11 +19,12 @@ namespace AlternativeAudio_Libsndfile{
 		bool GetFrame(float* frame);
 		double GetSampleRate() { return this->sfInfo.samplerate; }
 		AlternativeAudio::AudioSourceTime GetLength() { return this->m_timeLength; }
-		long long GetFrameLength() { return this->sfInfo.frames; }
 		const AlternativeAudio::AudioFrame::Type GetFrameType();
+		long long GetFrameLength() { return this->sfInfo.frames; }
 	private:
 		SNDFILE *sndFile;
 		SF_INFO sfInfo;
+		AlternativeAudio::AudioFrame::Type m_format;
 		AlternativeAudio::AudioSourceTime m_timeLength;
 		int m_flags;
 	};

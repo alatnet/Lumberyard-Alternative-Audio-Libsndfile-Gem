@@ -15,6 +15,6 @@
     "Version": "0.1.0",
     "LinkType": "Dynamic",
     "Summary": "Libsndfile libary implementation for AlternativeAudio.",
-    "Tags": ["Audio"],
+    "Tags": ["Audio", "Alternative Audio"],
     "IconPath": "preview.png"
 }

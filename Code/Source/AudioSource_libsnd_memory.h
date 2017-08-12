@@ -18,14 +18,15 @@ namespace AlternativeAudio_Libsndfile {
 		long long GetFrames(long long framesToRead, float* buff);
 		bool GetFrame(float* frame);
 		double GetSampleRate() { return this->m_samplerate; }
-		const AlternativeAudio::AudioFrame::Type GetFrameType();
 		AlternativeAudio::AudioSourceTime GetLength() { return this->m_timeLength; }
+		const AlternativeAudio::AudioFrame::Type GetFrameType();
 		long long GetFrameLength() { return this->m_numFrames; }
 	private:
 		long long m_pos;
 		long long  m_numFrames;
 		double m_samplerate;
 		int m_numChannels;
+		AlternativeAudio::AudioFrame::Type m_format;
 		AlternativeAudio::AudioSourceTime m_timeLength;
 		float * m_buff;
 		int m_flags;

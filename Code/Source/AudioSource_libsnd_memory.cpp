@@ -1,5 +1,6 @@
 #include <StdAfx.h>
 #include "AudioSource_libsnd_memory.h"
+#include <AlternativeAudio\AlternativeAudioBus.h>
 
 namespace AlternativeAudio_Libsndfile {
 	AudioSource_Libsnd_Memory::AudioSource_Libsnd_Memory(const char * filename) : AlternativeAudio::IAudioSource() {
@@ -37,6 +38,8 @@ namespace AlternativeAudio_Libsndfile {
 		this->m_numFrames = sfInfo.frames;
 		this->m_samplerate = sfInfo.samplerate;
 		this->m_numChannels = sfInfo.channels;
+
+		this->m_format = this->GetFrameType();
 
 		AZ_Printf("AudioSource_libsnd_memory", "[AudioSource_libsnd_memory] Channels: %i", sfInfo.channels);
 		AZ_Printf("AudioSource_libsnd_memory", "[AudioSource_libsnd_memory] Sample rate: %i", sfInfo.samplerate);
@@ -121,6 +124,9 @@ namespace AlternativeAudio_Libsndfile {
 		//update internal position.
 		this->m_pos += framesToRead;
 
+		//process per source dsp effect
+		this->ProcessEffects(this->m_format, buff, framesToRead);
+
 		//return the number of frames read.
 		return framesToRead;
 	}
@@ -143,6 +149,9 @@ namespace AlternativeAudio_Libsndfile {
 
 		//update internal position
 		this->m_pos++;
+
+		//process per source dsp effect
+		this->ProcessEffects(this->m_format, frame, 1);
 
 		//return that we have read the frame.
 		return true;
