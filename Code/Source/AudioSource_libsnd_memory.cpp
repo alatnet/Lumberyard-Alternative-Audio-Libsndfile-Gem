@@ -121,6 +121,8 @@ namespace AlternativeAudio_Libsndfile {
 			buff[i2] = this->m_buff[i];
 		}
 
+		//memcpy(buff, this->m_buff + (this->m_pos * this->m_numChannels), framesToRead * this->m_numChannels);
+
 		//update internal position.
 		this->m_pos += framesToRead;
 
@@ -146,6 +148,8 @@ namespace AlternativeAudio_Libsndfile {
 			if (i > this->m_numFrames * this->m_numChannels) break;
 			frame[i2] = this->m_buff[i];
 		}
+
+		//memcpy(frame, &this->m_buff[(this->m_pos * this->m_numChannels)], this->m_numChannels);
 
 		//update internal position
 		this->m_pos++;

@@ -68,7 +68,8 @@ namespace AlternativeAudio_Libsndfile {
 	}
 
 	bool AudioSource_Libsnd::GetFrame(float* frame) {
-		bool ret = sf_readf_float(this->sndFile, frame, this->sfInfo.channels) == 1;
+		bool ret = sf_readf_float(this->sndFile, frame, 1) == 1;
+		//bool ret = sf_read_float(this->sndFile, frame, this->sfInfo.channels) == 1;
 
 		//process per source dsp effect
 		if (ret) this->ProcessEffects(this->m_format, frame, 1);
