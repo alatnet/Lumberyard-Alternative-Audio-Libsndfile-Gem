@@ -79,7 +79,7 @@ namespace AlternativeAudio_Libsndfile {
 		filetypes.push_back("*.ogg");
 
 		EBUS_EVENT(
-			AlternativeAudio::AlternativeAudioRequestBus,
+			AlternativeAudio::AlternativeAudioSourceBus,
 			RegisterAudioLibrary,
 			"libsndfile",
 			AZ_CRC("libsndfile"),
@@ -90,7 +90,7 @@ namespace AlternativeAudio_Libsndfile {
 		);
 
 		EBUS_EVENT(
-			AlternativeAudio::AlternativeAudioRequestBus,
+			AlternativeAudio::AlternativeAudioSourceBus,
 			RegisterAudioLibrary,
 			"libsndfile_memory",
 			AZ_CRC("libsndfile_memory"),
@@ -99,7 +99,8 @@ namespace AlternativeAudio_Libsndfile {
 				return new AudioSource_Libsnd_Memory(path);
 			}
 		);
-
+		
+		AZ_Printf("[Libsndfile]", "[Libsndfile] Libsndfile version: %s\n", sf_version_string());
 		AZ_Printf("[Libsndfile]", "[Libsndfile] Registration complete.\n");
 	}
 

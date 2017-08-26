@@ -68,6 +68,8 @@ namespace AlternativeAudio_Libsndfile {
 	}
 
 	bool AudioSource_Libsnd::GetFrame(float* frame) {
+		if (this->m_hasError) return false;
+
 		bool ret = sf_readf_float(this->sndFile, frame, 1) == 1;
 		//bool ret = sf_read_float(this->sndFile, frame, this->sfInfo.channels) == 1;
 

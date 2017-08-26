@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sndfile.h>
-#include <AlternativeAudio\IAudioSource.h>
+#include <AlternativeAudio\AudioSource\IAudioSource.h>
 
 namespace AlternativeAudio_Libsndfile {
 	/*
@@ -11,8 +11,6 @@ namespace AlternativeAudio_Libsndfile {
 	public:
 		AudioSource_Libsnd_Memory(const char * filename);
 		~AudioSource_Libsnd_Memory();
-	public:
-		static std::string GetVersion();
 	public:
 		bool Seek(long long position);
 		long long GetFrames(long long framesToRead, float* buff);

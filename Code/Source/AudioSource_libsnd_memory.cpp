@@ -87,12 +87,6 @@ namespace AlternativeAudio_Libsndfile {
 		if (this->m_buff) delete[] this->m_buff;
 	}
 
-	std::string AudioSource_Libsnd_Memory::GetVersion() {
-		std::string ret = "[AudioSource_libsnd_memory] AudioSource - libsndfile version: ";
-		ret += sf_version_string();
-		return ret;
-	}
-
 	bool AudioSource_Libsnd_Memory::Seek(long long position) {
 		//make sure we are within bounds.
 		if (position >= this->m_numFrames) position = this->m_numFrames;
