@@ -121,7 +121,7 @@ namespace AlternativeAudio_Libsndfile {
 		this->m_pos += framesToRead;
 
 		//process per source dsp effect
-		this->ProcessEffects(this->m_format, buff, framesToRead);
+		this->ProcessEffects(this->m_format, buff, framesToRead, this);
 
 		//return the number of frames read.
 		return framesToRead;
@@ -149,7 +149,7 @@ namespace AlternativeAudio_Libsndfile {
 		this->m_pos++;
 
 		//process per source dsp effect
-		this->ProcessEffects(this->m_format, frame, 1);
+		this->ProcessEffects(this->m_format, frame, 1, this);
 
 		//return that we have read the frame.
 		return true;

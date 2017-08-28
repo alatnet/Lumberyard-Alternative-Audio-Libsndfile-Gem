@@ -19,7 +19,7 @@ namespace AlternativeAudio_Libsndfile {
 				ec->Class<AlternativeAudio_LibsndfileSystemComponent>("AlternativeAudio_Libsndfile", "Provides Libsndfile audio sources.")
 					->ClassElement(AZ::Edit::ClassElements::EditorData, "")
 					->Attribute(AZ::Edit::Attributes::Category, "Alternative Audio - Library")
-					->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System"))
+					->Attribute(AZ::Edit::Attributes::AppearsInAddComponentMenu, AZ_CRC("System", 0xc94d118b))
 					->Attribute(AZ::Edit::Attributes::AutoExpand, true)
 					;
 			}
@@ -27,15 +27,15 @@ namespace AlternativeAudio_Libsndfile {
 	}
 
 	void AlternativeAudio_LibsndfileSystemComponent::GetProvidedServices(AZ::ComponentDescriptor::DependencyArrayType& provided) {
-		provided.push_back(AZ_CRC("AlternativeAudio_LibsndfileService"));
+		provided.push_back(AZ_CRC("AlternativeAudio_LibsndfileService", 0xf6713d77));
 	}
 
 	void AlternativeAudio_LibsndfileSystemComponent::GetIncompatibleServices(AZ::ComponentDescriptor::DependencyArrayType& incompatible) {
-		incompatible.push_back(AZ_CRC("AlternativeAudio_LibsndfileService"));
+		incompatible.push_back(AZ_CRC("AlternativeAudio_LibsndfileService", 0xf6713d77));
 	}
 
 	void AlternativeAudio_LibsndfileSystemComponent::GetRequiredServices(AZ::ComponentDescriptor::DependencyArrayType& required) {
-		required.push_back(AZ_CRC("AlternativeAudioService"));
+		required.push_back(AZ_CRC("AlternativeAudioService", 0x2eb4e627));
 	}
 
 	void AlternativeAudio_LibsndfileSystemComponent::GetDependentServices(AZ::ComponentDescriptor::DependencyArrayType& dependent) {
@@ -82,7 +82,7 @@ namespace AlternativeAudio_Libsndfile {
 			AlternativeAudio::AlternativeAudioSourceBus,
 			RegisterAudioLibrary,
 			"libsndfile",
-			AZ_CRC("libsndfile"),
+			AZ_CRC("libsndfile", 0x644880ac),
 			filetypes,
 			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
 				return new AudioSource_Libsnd(path);
@@ -93,7 +93,7 @@ namespace AlternativeAudio_Libsndfile {
 			AlternativeAudio::AlternativeAudioSourceBus,
 			RegisterAudioLibrary,
 			"libsndfile_memory",
-			AZ_CRC("libsndfile_memory"),
+			AZ_CRC("libsndfile_memory", 0x51220da8),
 			filetypes,
 			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
 				return new AudioSource_Libsnd_Memory(path);

@@ -62,7 +62,7 @@ namespace AlternativeAudio_Libsndfile {
 		long long ret = sf_readf_float(this->sndFile, buff, framesToRead);
 
 		//process per source dsp effect
-		this->ProcessEffects(this->m_format, buff, ret);
+		this->ProcessEffects(this->m_format, buff, ret, this);
 
 		return ret;
 	}
@@ -74,7 +74,7 @@ namespace AlternativeAudio_Libsndfile {
 		//bool ret = sf_read_float(this->sndFile, frame, this->sfInfo.channels) == 1;
 
 		//process per source dsp effect
-		if (ret) this->ProcessEffects(this->m_format, frame, 1);
+		if (ret) this->ProcessEffects(this->m_format, frame, 1, this);
 
 		return ret;
 	}
