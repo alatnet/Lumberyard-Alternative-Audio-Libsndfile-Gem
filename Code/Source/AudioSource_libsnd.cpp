@@ -5,7 +5,18 @@ namespace AlternativeAudio_Libsndfile {
 	AudioSource_Libsnd::AudioSource_Libsnd(const char * filename) : AlternativeAudio::IAudioSource() {
 		AZ_Printf("AudioSource_libsnd", "[AudioSource_libsnd] Loading File : %s", filename);
 		this->sndFile = nullptr;
-		this->sndFile = sf_open(filename, SFM_READ, &this->sfInfo);
+		//this->sndFile = sf_open(filename, SFM_READ, &this->sfInfo);
+
+		//resolve the path
+		if (gEnv) {
+			char * resolvedPath = new char[AZ_MAX_PATH_LEN];
+			gEnv->pFileIO->ResolvePath(filename, resolvedPath, AZ_MAX_PATH_LEN);
+			AZ_Printf("AudioSource_libsnd", "Resolved Audio Path - %s", resolvedPath);
+			this->sndFile = sf_open(resolvedPath, SFM_READ, &sfInfo);
+			delete resolvedPath;
+		} else {
+			this->sndFile = sf_open(filename, SFM_READ, &sfInfo);
+		}
 
 		if (!this->sndFile) {
 			int err = sf_error(this->sndFile);

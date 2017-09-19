@@ -2,10 +2,12 @@
 #include "AudioSource_libsnd_memory.h"
 #include <AlternativeAudio\AlternativeAudioBus.h>
 
+#include <AzCore\IO\SystemFile.h>
+
 namespace AlternativeAudio_Libsndfile {
 	AudioSource_Libsnd_Memory::AudioSource_Libsnd_Memory(const char * filename) : AlternativeAudio::IAudioSource() {
 		AZ_Printf("AudioSource_libsnd_memory", "[AudioSource_libsnd_memory] Loading File: %s", filename);
-
+		
 		//setup
 		this->m_pos = this->m_numFrames = this->m_numChannels = 0;
 		this->m_samplerate = 0.0f;
@@ -14,7 +16,18 @@ namespace AlternativeAudio_Libsndfile {
 		//open the file
 		SNDFILE *sndFile;
 		SF_INFO sfInfo;
-		sndFile = sf_open(filename, SFM_READ, &sfInfo);
+		//sndFile = sf_open(filename, SFM_READ, &sfInfo);
+
+		//resolve the path
+		if (gEnv) {
+			char * resolvedPath = new char[AZ_MAX_PATH_LEN];
+			gEnv->pFileIO->ResolvePath(filename, resolvedPath, AZ_MAX_PATH_LEN);
+			AZ_Printf("AudioSource_libsnd", "Resolved Audio Path - %s", resolvedPath);
+			sndFile = sf_open(resolvedPath, SFM_READ, &sfInfo);
+			delete resolvedPath;
+		} else {
+			sndFile = sf_open(filename, SFM_READ, &sfInfo);
+		}
 
 		//make sure we have no error opening the file.
 		if (!sndFile) {
