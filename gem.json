@@ -1,20 +1,20 @@
 {
-  "Dependencies": [
-    {
-      "Uuid": "b4745a69bade49a3aacc01e4475bdee7",
-      "VersionConstraints": [
-        "~>0.1"
-      ],
-      "_comment": "AlternativeAudio"
-    }
-  ],
-    "GemFormatVersion": 3,
-    "Uuid": "a987cb9a5fec4ed2b6266a481d5236f3",
-    "Name": "AlternativeAudio_Libsndfile",
-    "DisplayName": "AlternativeAudio_Libsndfile",
-    "Version": "0.1.0",
-    "LinkType": "Dynamic",
-    "Summary": "Libsndfile libary implementation for AlternativeAudio.",
-    "Tags": ["Audio", "Alternative Audio"],
-    "IconPath": "preview.png"
+	"Dependencies": [
+		{
+			"Uuid": "b4745a69bade49a3aacc01e4475bdee7",
+			"VersionConstraints": [
+				">=0.1"
+			],
+			"_comment": "AlternativeAudio"
+		}
+	],
+	"GemFormatVersion": 3,
+	"Uuid": "a987cb9a5fec4ed2b6266a481d5236f3",
+	"Name": "AlternativeAudio_Libsndfile",
+	"DisplayName": "AlternativeAudio_Libsndfile",
+	"Version": "2.0.0",
+	"LinkType": "Dynamic",
+	"Summary": "Libsndfile libary implementation for AlternativeAudio.",
+	"Tags": ["Audio", "Alternative Audio"],
+	"IconPath": "preview.png"
 }

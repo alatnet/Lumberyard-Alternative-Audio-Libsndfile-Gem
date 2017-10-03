@@ -30,4 +30,5 @@ def build(bld):
         libpath = [
             bld.path.abspath() + '/../3rdParty/libsndfile/lib'
         ],
+        win_features = ['crcfix']
     )
