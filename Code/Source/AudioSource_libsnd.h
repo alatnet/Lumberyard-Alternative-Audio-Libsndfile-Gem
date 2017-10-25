@@ -25,5 +25,8 @@ namespace AlternativeAudio_Libsndfile{
 		AlternativeAudio::AudioFrame::Type m_format;
 		AlternativeAudio::AudioSourceTime m_timeLength;
 		int m_flags;
+	private:
+		SF_VIRTUAL_IO vio;
+		AZ::IO::HandleType handle;
 	};
 }

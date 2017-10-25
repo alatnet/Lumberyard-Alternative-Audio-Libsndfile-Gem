@@ -9,7 +9,9 @@
     "Source": [
       "Source/AlternativeAudio_LibsndfileModule.cpp",
       "Source/AlternativeAudio_LibsndfileSystemComponent.cpp",
-      "Source/AlternativeAudio_LibsndfileSystemComponent.h"
+      "Source/AlternativeAudio_LibsndfileSystemComponent.h",
+      "Source/AudioSource_libsnd_virtualio.cpp",
+      "Source/AudioSource_libsnd_virtualio.h"
     ],
     "Source/AudioSources": [
       "Source/AudioSource_libsnd_memory.cpp",

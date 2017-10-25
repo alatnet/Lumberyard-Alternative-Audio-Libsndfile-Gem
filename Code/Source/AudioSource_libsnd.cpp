@@ -1,7 +1,11 @@
 #include <StdAfx.h>
 #include "AudioSource_libsnd.h"
 
+#include "AudioSource_libsnd_virtualio.h"
+
 namespace AlternativeAudio_Libsndfile {
+	//todo, use virutal io and gEnv->pFileIO instead of sf_open
+
 	AudioSource_Libsnd::AudioSource_Libsnd(const char * filename) : AlternativeAudio::IAudioSource() {
 		AZ_Printf("AudioSource_libsnd", "[AudioSource_libsnd] Loading File : %s", filename);
 		this->sndFile = nullptr;
@@ -9,19 +13,38 @@ namespace AlternativeAudio_Libsndfile {
 
 		//resolve the path
 		if (gEnv) {
-			char * resolvedPath = new char[AZ_MAX_PATH_LEN];
+			/*char * resolvedPath = new char[AZ_MAX_PATH_LEN];
 			gEnv->pFileIO->ResolvePath(filename, resolvedPath, AZ_MAX_PATH_LEN);
 			AZ_Printf("AudioSource_libsnd", "Resolved Audio Path - %s", resolvedPath);
 			this->sndFile = sf_open(resolvedPath, SFM_READ, &sfInfo);
-			delete resolvedPath;
-		} else {
+			delete resolvedPath;*/
+
+			this->vio.get_filelen = VIO::get_filelen;
+			this->vio.read = VIO::read;
+			this->vio.seek = VIO::seek;
+			this->vio.tell = VIO::tell;
+			this->vio.write = VIO::write;
+
+			this->handle = AZ::IO::InvalidHandle;
+
+			if (gEnv->pFileIO->Open(filename, AZ::IO::OpenMode::ModeRead | AZ::IO::OpenMode::ModeBinary, this->handle) != AZ::IO::ResultCode::Success) {
+				pushError(-1, "Cannot open file.");
+				return;
+			}
+
+			if (this->handle != AZ::IO::InvalidHandle) this->sndFile = sf_open_virtual(&(this->vio), SFM_READ, &(this->sfInfo), (void*)(this->handle));
+			else {
+				pushError(-2, "Invalid File Handle.");
+				return;
+			}
+		} else
 			this->sndFile = sf_open(filename, SFM_READ, &sfInfo);
-		}
 
 		if (!this->sndFile) {
 			int err = sf_error(this->sndFile);
 			pushError(err, sf_error_number(err));
 			this->sndFile = nullptr;
+			if (gEnv && handle != AZ::IO::InvalidHandle) gEnv->pFileIO->Close(handle);
 			return;
 		}
 
@@ -31,6 +54,7 @@ namespace AlternativeAudio_Libsndfile {
 			pushError(err, sf_error_number(err));
 			sf_close(this->sndFile); //close the libsndfile file.
 			this->sndFile = nullptr;
+			if (gEnv && handle != AZ::IO::InvalidHandle) gEnv->pFileIO->Close(handle);
 			return;
 		}
 		
@@ -53,6 +77,8 @@ namespace AlternativeAudio_Libsndfile {
 			sf_close(this->sndFile); //close the libsndfile file.
 			this->sndFile = nullptr;
 		}
+
+		if (gEnv && this->handle != AZ::IO::InvalidHandle) gEnv->pFileIO->Close(this->handle);
 	}
 	
 	bool AudioSource_Libsnd::Seek(long long position){
