@@ -84,7 +84,7 @@ namespace AlternativeAudio_Libsndfile {
 			"libsndfile",
 			AZ_CRC("libsndfile", 0x644880ac),
 			filetypes,
-			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
+			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSourceLib* {
 				return new AudioSource_Libsnd(path);
 			}
 		);
@@ -95,7 +95,7 @@ namespace AlternativeAudio_Libsndfile {
 			"libsndfile_memory",
 			AZ_CRC("libsndfile_memory", 0x51220da8),
 			filetypes,
-			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSource* {
+			[](const char * path, void * userdata)-> AlternativeAudio::IAudioSourceLib* {
 				return new AudioSource_Libsnd_Memory(path);
 			}
 		);

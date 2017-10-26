@@ -12,7 +12,7 @@
 	"Uuid": "a987cb9a5fec4ed2b6266a481d5236f3",
 	"Name": "AlternativeAudio_Libsndfile",
 	"DisplayName": "AlternativeAudio_Libsndfile",
-	"Version": "3.0.0",
+	"Version": "3.1.0",
 	"LinkType": "Dynamic",
 	"Summary": "Libsndfile libary implementation for AlternativeAudio.",
 	"Tags": ["Audio", "Alternative Audio"],

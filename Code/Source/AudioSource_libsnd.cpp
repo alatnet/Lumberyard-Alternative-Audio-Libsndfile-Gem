@@ -6,7 +6,7 @@
 namespace AlternativeAudio_Libsndfile {
 	//todo, use virutal io and gEnv->pFileIO instead of sf_open
 
-	AudioSource_Libsnd::AudioSource_Libsnd(const char * filename) : AlternativeAudio::IAudioSource() {
+	AudioSource_Libsnd::AudioSource_Libsnd(const char * filename) : AlternativeAudio::IAudioSourceLib() {
 		AZ_Printf("AudioSource_libsnd", "[AudioSource_libsnd] Loading File : %s", filename);
 		this->sndFile = nullptr;
 		//this->sndFile = sf_open(filename, SFM_READ, &this->sfInfo);
@@ -95,25 +95,28 @@ namespace AlternativeAudio_Libsndfile {
 	
 	long long AudioSource_Libsnd::GetFrames(long long framesToRead, float* buff){
 		if (this->m_hasError) return 0;
-		
-		long long ret = sf_readf_float(this->sndFile, buff, framesToRead);
+		return sf_readf_float(this->sndFile, buff, framesToRead);
+
+		//long long ret = sf_readf_float(this->sndFile, buff, framesToRead);
 
 		//process per source dsp effect
-		this->ProcessEffects(this->m_format, buff, ret, this);
+		//this->ProcessEffects(this->m_format, buff, ret, this);
 
-		return ret;
+		//return ret;
 	}
 
 	bool AudioSource_Libsnd::GetFrame(float* frame) {
 		if (this->m_hasError) return false;
 
-		bool ret = sf_readf_float(this->sndFile, frame, 1) == 1;
+		return sf_readf_float(this->sndFile, frame, 1) == 1;
+
+		//bool ret = sf_readf_float(this->sndFile, frame, 1) == 1;
 		//bool ret = sf_read_float(this->sndFile, frame, this->sfInfo.channels) == 1;
 
 		//process per source dsp effect
-		if (ret) this->ProcessEffects(this->m_format, frame, 1, this);
+		//if (ret) this->ProcessEffects(this->m_format, frame, 1, this);
 
-		return ret;
+		//return ret;
 	}
 
 	const AlternativeAudio::AudioFrame::Type AudioSource_Libsnd::GetFrameType() {

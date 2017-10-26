@@ -7,7 +7,7 @@ namespace AlternativeAudio_Libsndfile {
 	/*
 	Audio source that utilizes libsndfile to load an audio file completely into memory.
 	*/
-	class AudioSource_Libsnd_Memory : public AlternativeAudio::IAudioSource {
+	class AudioSource_Libsnd_Memory : public AlternativeAudio::IAudioSourceLib {
 	public:
 		AudioSource_Libsnd_Memory(const char * filename);
 		~AudioSource_Libsnd_Memory();

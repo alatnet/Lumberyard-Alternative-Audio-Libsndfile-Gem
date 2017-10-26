@@ -7,7 +7,7 @@ namespace AlternativeAudio_Libsndfile{
 	/*
 	Audio source that utilizes libsndfile to stream audio files.
 	*/
-	class AudioSource_Libsnd : public AlternativeAudio::IAudioSource {
+	class AudioSource_Libsnd : public AlternativeAudio::IAudioSourceLib {
 	public:
 		AudioSource_Libsnd(const char * filename);
 		~AudioSource_Libsnd();
